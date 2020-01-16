@@ -63,7 +63,7 @@ module.exports = {
       const { name = login, avatar_url, bio } = gitAPIResponse.data;
     
       // Create model
-      const dev = await Dev.create({
+      dev = await Dev.create({
         github_username,
         name,
         avatar_url,
