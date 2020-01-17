@@ -1,6 +1,8 @@
 const axios = require('axios');
 const Dev = require('../models/Dev');
 const parseStringAsArray = require('../utils/parseStringAsArray');
+const {findConnections, sendMessage} = require('../websocket');
+
 
 //index, show, store, update, destroy
 module.exports = {
@@ -71,8 +73,15 @@ module.exports = {
         techs: techsArray,
         location,
       });
+      
+      // filter conections in 10km and by techs
+      const sendSocketMessageTo = findConnections(
+        {latitude, longitude},
+        techsArray,);
+
+        sendMessage(sendSocketMessageTo, 'new-dev', dev);
     }
     // if user is not registered, it will return null, else it returns the user
     return response.json(dev);
-  }
+  },
 };
